@@ -64,10 +64,11 @@ I chose the the source and destination points in the following manner:
 
     src = np.float32(
         [
-        [central_column - 90, int(rows*0.63)],    # high left corner
-        [central_column + 90, int(rows*0.63)],    # high right corner
+        [central_column - 92, int(rows*0.63)],    # high left corner
+        [central_column + 92, int(rows*0.63)],    # high right corner
         [central_column - 860, last_row],          # low left corner
         [central_column + 860, last_row]           # low right corner
+
     ])
         
     dst = np.float32(
@@ -82,14 +83,14 @@ This resulted in the following source and destination points:
 
 | Source        | Destination   | 
 |:-------------:|:-------------:| 
-| 550  453      | 320, 0        | 
-| 203, 720      | 320, 720      |
-| 1127, 720     | 960, 720      |
-| 695, 460      | 960, 0        |
+| 548   453     |   0, 0        | 
+| 732   453     |   1279, 0     |
+| -220   719    |   0, 719      |
+| 1500  719     |   1279, 719   |
 
-I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image.
 
-![alt text][image4]
+I verified that my perspective transform was working as expected by plotting side by side the input image with the one with the applied transform. All the images has been tested and the results are saved in the folder "output_images/transformed_images".
+This part can be found in the cell number 10.
 
 #### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
