@@ -33,7 +33,7 @@ First the corner detection on all the chessboard images (in the folder 'camera_c
 Then, also a list of object point is computed: they are same for each calibration image.
 Based on these two vectors I could compute the camera calibration and distortion coefficients using the `cv2.calibrateCamera()` function.
 
-As a first test I applied the distortion correction to the image 'camera_cal/calibration1.jpg'to test that the algorithm was providing the expected results. The output is saved in the folder "output_images/" with the name "calibration1_undistorted.png".
+As a first test I applied the distortion correction to the image 'camera_cal/calibration1.jpg' to test that the algorithm was providing the expected results. The output is saved in the folder "output_images/" with the name "calibration1_undistorted.png".
 
 Then, I applied the correction to all the test images in the folder "test_images/.jpg" and saved the comparison in the folder "output_images/undistorted_images" (see cell 6).
 
@@ -88,7 +88,7 @@ This resulted in the following values:
 | -220   719    |   0, 719      |
 | 1500  719     |   1279, 719   |
 
-This function also returns the inverse of the transformation matrix because it is ncessary in the next step.
+This function also returns the inverse of the transformation matrix because it will be necessary later.
 
 I verified that my perspective transform was working as expected by plotting side by side the input image with the one with the applied transform. All the images have been tested and the results are saved in the folder "output_images/transformed_images".
 This part can be found in the cell number 10.
@@ -117,7 +117,8 @@ Here the task is to compute the curvature of the polynomial found in the previou
     xm_per_pix = 3.7/700 # meters per pixel in x
 
 The next part of this step is the calculation of the ego vehicle position with respect to the center of the lane. 
-Here the assumption that the camera is mounted in the center of the car is made in order to compute the vehicle center simply by dividing by 2 the total number of columns of the image. Then, the center of the lane is calculated starting by the left and right polyinomials representing the lane-lines.
+Here the assumption that the camera is mounted in the center of the car is made. In this was it is possible to compute the vehicle center simply by dividing by 2 the total number of columns of the image.
+Then, the center of the lane is calculated starting by the left and right polyinomials representing the lane-lines.
 Finally, the distance of the ego vehicle from the center line is the difference of these two last computed values.
 Again here, I have to use the constant `xm_per_pix` to convert the calculation to meter.
 
@@ -145,6 +146,6 @@ The major challenge I faced was finding a lane-lines identification that was rob
 The most difficult part of the video was when the street changes color to a lighter gray: here the original pipeline I implemented was failing and the lane identification was extending up to the road boundary on the left. 
 To solve this issue I had to add a colour threshold on the L channel.
 
-The pipeline could fail anytime that the colour and/or edge thresholding fails to find the lines and unfortunatetly this is quite likely to happen since the pipeline was tested only on a specific scenario. Thus, a good starting point to improve it would be to define a pipeline to tune the parameters on a more extended set of scenarios.
+The pipeline could fail anytime that the colour and/or edge thresholding fails to find the lines and unfortunatetly this is quite likely to happen since the pipeline was tested only on a specific scenario. Thus, a good starting point to improve it would be to define a pipeline able to tune the parameters on a more extended set of scenarios.
 
 The line identification is sometimes wobbling. This is mainly due to the fact that there is no memory used in the algorithm: a better results could be obtained by adding a sort of filter that takes into account previous information in order to smooth the current one. But overall, I am satisfied with my lane lines identification, even the radius estimation is providing values within an accettable range.
